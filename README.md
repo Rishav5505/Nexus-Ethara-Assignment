@@ -17,25 +17,29 @@
 
 ## 🚀 Key Features
 
-### 🔐 Secure Authentication
-- **Role-Based Access Control (RBAC)**: Choose between **Admin** or **Member** roles during signup.
-- **JWT Security**: Session-based login with secure token management.
-- **Forgot Password**: Fully functional recovery flow with secure email tokens.
+### 🔐 Advanced Authentication
+- **RBAC Toggle**: Select **Admin** or **Member** role directly during Signup.
+- **Forgot Password**: Fully implemented recovery flow via `/auth/forgot-password`.
+- **JWT Protection**: Secure endpoints for all sensitive data.
 
-### 📊 Project & Task Management
-- **Collaborative Workspaces**: Create projects and invite your team.
-- **Advanced Task Tracking**: Manage tasks with priority levels, due dates, and status transitions.
-- **Visual Kanban**: Track progress through a modern interface.
+### 📊 Workspace Management
+- **Admin Dashboard**: Specialized view for project and user oversight.
+- **Audit Logs**: Professional activity tracking (e.g., *Alex moved Task X to Done*).
+- **Team Management**: Invite new members and remove users (Admin only).
+- **Billing & Plans**: Premium subscription-style UI for project scaling.
 
-### 🛡️ Administrative Power
-- **Team Oversight**: Admins can invite/remove members and manage user roles.
-- **Professional Activity Log**: A complete audit trail of task status changes (e.g., `Pending` → `In Progress` → `Done`).
-- **Workspace Analytics**: Real-time stats on team performance and task completion.
+### 🛠️ Core Functionality Checklist
+- [x] **User Auth**: Signup, Login, Password Reset.
+- [x] **Project Management**: Create, Read, Update, Delete (CRUD).
+- [x] **Task Tracking**: Assign, set Priority, Due Dates, and Status.
+- [x] **Team Controls**: Role-based access and member management.
+- [x] **Analytics**: Visualized stats for workspace productivity.
+- [x] **Activity Log**: Clean audit trail of all task transitions.
 
-### 🎨 Premium Aesthetics
-- **Dark Mode by Default**: Sleek, modern dark-themed design.
-- **Glassmorphism**: Beautiful translucent UI elements.
-- **Micro-Animations**: Smooth transitions using Framer Motion & CSS.
+### 🎨 Design & UX
+- **Glassmorphism**: Premium dark-mode UI with blur effects.
+- **Responsive**: Fully functional on Mobile, Tablet, and Desktop.
+- **Micro-interactions**: Hover effects, smooth transitions, and loading states.
 
 ---
 
