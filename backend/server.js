@@ -19,6 +19,11 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/astral-fl
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log('MongoDB Connection Error:', err));
 
+// Health Check for Cron-job.org
+app.get('/', (req, res) => {
+  res.status(200).send('Server is Up and Running!');
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/projects', require('./routes/projects'));
