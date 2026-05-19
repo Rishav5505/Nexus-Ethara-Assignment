@@ -31,6 +31,36 @@ export function LoginPage() {
     }
   }, [login, navigate]);
 
+  const handleDemoLogin = async (role: "admin" | "member") => {
+    setLoading(true);
+    setError("");
+    
+    const defaultEmail = role === "admin" ? "alex@example.com" : "sarah@example.com";
+    const defaultPassword = "password123";
+    
+    const demoEmail = localStorage.getItem(`demo_${role}_email`) || defaultEmail;
+    const demoPassword = localStorage.getItem(`demo_${role}_password`) || defaultPassword;
+    
+    try {
+      const data = await api.post("/auth/login", { email: demoEmail, password: demoPassword });
+      if (data.token) {
+        if (data.user && data.user.role) {
+          localStorage.setItem(`demo_${data.user.role}_email`, demoEmail);
+          localStorage.setItem(`demo_${data.user.role}_password`, demoPassword);
+        }
+        login(data.token, data.user);
+        navigate({ to: "/dashboard" });
+      } else {
+        setError(data.msg || data.error || "Demo login failed.");
+      }
+    } catch (err) {
+      console.error("Demo Login Error:", err);
+      setError("Something went wrong with demo login.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -39,6 +69,10 @@ export function LoginPage() {
     try {
       const data = await api.post("/auth/login", { email, password });
       if (data.token) {
+        if (data.user && data.user.role) {
+          localStorage.setItem(`demo_${data.user.role}_email`, email);
+          localStorage.setItem(`demo_${data.user.role}_password`, password);
+        }
         login(data.token, data.user);
         navigate({ to: "/dashboard" });
       } else {
@@ -266,6 +300,31 @@ export function LoginPage() {
                 "Sign in"
               )}
             </button>
+
+            <div className="relative flex items-center py-2 mt-2">
+              <div className="flex-grow border-t border-border"></div>
+              <span className="flex-shrink-0 mx-4 text-[10px] text-muted-foreground uppercase tracking-widest">Demo Access</span>
+              <div className="flex-grow border-t border-border"></div>
+            </div>
+            
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => handleDemoLogin('member')}
+                disabled={loading}
+                className="flex-1 h-10 rounded-xl bg-surface/60 border border-border hover:bg-primary/10 hover:border-primary/40 hover:text-white text-xs font-medium transition text-muted-foreground"
+              >
+                Member
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDemoLogin('admin')}
+                disabled={loading}
+                className="flex-1 h-10 rounded-xl bg-surface/60 border border-border hover:bg-primary/10 hover:border-primary/40 hover:text-white text-xs font-medium transition text-muted-foreground"
+              >
+                Admin
+              </button>
+            </div>
           </form>
 
           <p className="text-xs text-muted-foreground text-center mt-6">
